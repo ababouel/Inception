@@ -6,3 +6,4 @@ apt-get add php81-gd php81-zlib php81-curl
 apt-get add tar wget
 /etc/init.d/php-fpm81 restart
 cd /tmp && wget wget https://wordpress.org/latest.tar.gz
+mv wordpress  /var/www

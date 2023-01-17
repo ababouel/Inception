@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  wordpress:
+    image: wordpress
+    container_name: wps
+    ports:
+      - "9000:80"
+    depends_on:
+      - database
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: "Ssd@443"
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      docknet:
+        ipv4_address: "10.56.1.21"
+  database:
+    image: mariadb
+    container_name: dbs
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: mypassword 
+      MYSQL_DATABASE: wordpress
+      MYSQL_ROOT_PASSWORD: "Ssd@443"
+    ports:
+      - '3306:3306'
+    restart: always
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      docknet:
+        ipv4_address: "10.56.1.20"
+networks:
+  docknet:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.56.1.0/24"
+

@@ -1,11 +1,11 @@
-FROM  alpine:latest
+FROM  debian:latest
 
 EXPOSE 443
-RUN apk update &&\
-	apk upgrade &&\
-	apk	add nginx openssl;
+RUN apt-get update -y &&\
+	apt-get upgrade -y &&\
+	apt-get	install nginx openssl -y;
 
-COPY	./conf/default.conf	/etc/nginx/http.d/default.conf
+# COPY	./conf/default.conf	/etc/nginx/http.d/default.conf
 
 COPY	./tools/script.sh /tmp/script.sh
 

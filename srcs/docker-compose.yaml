@@ -1,41 +1,64 @@
 version: "3"
 
 services:
-  wordpress:
-    image: wordpress
-    container_name: wps
+  nginx:
+    build: ./requirement/nginx
+    image: nginx:inception
+    container_name: nginx
+    env_file:
+      - .env
     ports:
-      - "9000:80"
+      - '443:443'
+    restart: on-failure
     depends_on:
-      - database
-    environment:
-      WORDPRESS_DB_HOST: database
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: "Ssd@443"
-      WORDPRESS_DB_NAME: wordpress
+      - wordpress
     networks:
-      docknet:
-        ipv4_address: "10.56.1.21"
-  database:
-    image: mariadb
-    container_name: dbs
-    environment:
-      MYSQL_USER: user
-      MYSQL_PASSWORD: mypassword 
-      MYSQL_DATABASE: wordpress
-      MYSQL_ROOT_PASSWORD: "Ssd@443"
+      - docknet
+    volumes:
+      - db_wordpress:/var/www/html
+  wordpress:
+    build: ./requirement/wordpress
+    image: wordpress:inception
+    conatiner_name: wordpress
+    env_file:
+      - .env
+    ports:
+      - '9000:9000'
+    restart: always
+    depends_on:
+      - mariadb
+    networks:
+      - docknet
+    volumes:
+      - db_wordpress:/var/www/html
+  mariadb:
+    build: ./requirement/mariadb
+    image: mariadb:inception
+    container_name: mariadb
     ports:
       - '3306:3306'
     restart: always
-    volumes:
-      - ./db:/var/lib/mysql
+    env_file:
+      - .env
     networks:
-      docknet:
-        ipv4_address: "10.56.1.20"
+      - docknet
+    volumes:
+      - db_mariadb:var/lib/mysql/
+volumes:
+  db_wordpress:
+    driver: local
+    driver_opts:
+      device: ./data/db_wordpress
+      #/home/ababouel/data/db_wordpress
+      type: none
+      o: binds
+  db_mariadb:
+    driver: local
+    driver_opts:
+      device: ./data/db_mariadb
+      #/home/ababouel/data/db_mariadb
+      type: none
+      o: binds
 networks:
   docknet:
-    ipam:
-      driver: default
-      config:
-        - subnet: "10.56.1.0/24"
-
+    driver: bridge

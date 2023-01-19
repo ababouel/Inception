@@ -1,6 +1,19 @@
 version: "3"
 
 services:
+  mariadb:
+    build: ./requirement/mariadb
+    image: mariadb:inception
+    container_name: mariadb
+    ports:
+      - '3306:3306'
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - docknet
+    volumes:
+      - db_mariadb:/var/lib/mysql/
   nginx:
     build: ./requirement/nginx
     image: nginx:inception
@@ -19,7 +32,7 @@ services:
   wordpress:
     build: ./requirement/wordpress
     image: wordpress:inception
-    conatiner_name: wordpress
+    container_name: wordpress
     env_file:
       - .env
     ports:
@@ -31,34 +44,21 @@ services:
       - docknet
     volumes:
       - db_wordpress:/var/www/html
-  mariadb:
-    build: ./requirement/mariadb
-    image: mariadb:inception
-    container_name: mariadb
-    ports:
-      - '3306:3306'
-    restart: always
-    env_file:
-      - .env
-    networks:
-      - docknet
-    volumes:
-      - db_mariadb:var/lib/mysql/
 volumes:
   db_wordpress:
-    driver: local
-    driver_opts:
-      device: ./data/db_wordpress
-      #/home/ababouel/data/db_wordpress
-      type: none
-      o: binds
+    # driver: local
+    # driver_opts:
+    #   device: ${PWD}/data/db_wordpress
+    #   type: none
+    #   o: binds
+    #   #/home/ababouel/data/db_wordpress
   db_mariadb:
-    driver: local
-    driver_opts:
-      device: ./data/db_mariadb
-      #/home/ababouel/data/db_mariadb
-      type: none
-      o: binds
+    # driver: local
+    # driver_opts:
+    #   device: ${PWD}/data/db_mariadb
+    #   type: none
+    #   o: binds
+    #   #/home/ababouel/data/db_mariadb
 networks:
   docknet:
     driver: bridge

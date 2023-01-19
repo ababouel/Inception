@@ -5,6 +5,10 @@ service mysql start
 
 # change the bind to 0.0.0.0 only accept client connections made to 0.0.0.0 (accept connection to any address)
 sed -i 's/bind-address            = 127.0.0.1/bind-address = 0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+sudo mkdir -p /var/run/mysqld/
+touch /var/run/mysqld/mysqld.pid
+touch /var/run/mysqld/mysqld.sock
+chown mysql:mysql -R /var/run/mysqld
 
 # create the database if not exist
 mysql -u root -p$MYSQL_ROOTPASSWORD -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"

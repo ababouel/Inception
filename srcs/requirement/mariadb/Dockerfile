@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:buster
 
 # install mariadb server
 RUN apt update && apt -y install mariadb-server

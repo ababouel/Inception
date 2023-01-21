@@ -21,27 +21,27 @@ cd /var/www/html/
 wp core download --allow-root
 
 # create wp-config.php file
-touch wp-config.php
+# touch wp-config.php
 
 # copy the default configuration to wp-config.php
+cat /var/www/html/wp-config.php
 cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
-
 # change is modifying the unix socket used for the connection of PHP-FPM with the web server,
 # from the default /run/php/php7.3-fpm.sock to TCP/IP port 9000 .
 sed -i '36 s/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.3/fpm/pool.d/www.conf
 
 # Set The Database that will be connected with wordpress
-# sed -i 's/database_name_here/'$MYSQL_DATABASE'/g' /var/www/html/wp-config.php
+sed -i 's/database_name_here/'$DB_NAME'/g' /var/www/html/wp-config.php
 
 # # Set the Username of The database
-# sed -i 's/username_here/'$MYSQL_USER'/g' /var/www/html/wp-config.php
+sed -i 's/username_here/'$DB_USER'/g' /var/www/html/wp-config.php
 
-# # Set the Password
-# sed -i 's/password_here/'$MYSQL_PASSWORD'/g' /var/www/html/wp-config.php
+# Set the Password
+sed -i 's/password_here/'$DB_PASS'/g' /var/www/html/wp-config.php
 
 # # set The Hostname of the That base
 # sed -i 's/localhost/'$HOST'/g' /var/www/html/wp-config.php
-wp --allow-root core config --dbhost=mariadb --dbname=MYSQL_USER --dbuser=$MYSQL_USER --dbpass=$MYSQL_ROOTPASSWORD
+wp --allow-root core config --dbhost=mariadb --dbname=MYSQL_USER --dbuser=$DB_USER --dbpass=$DB_PASS
 chmod 777 /var/www/html/wp-config.php
 # wp config set FORCE_SSL_ADMIN 'false' --allow-root
 

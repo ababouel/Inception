@@ -11,4 +11,25 @@ mysql -u root -p -e "alter user 'root'@'localhost' identified by '$DB_ROOT_PASS'
 mysql -u root -p -e "FLUSH PRIVILEGES;"
 kill `cat /var/run/mysqld/mysqld.pid`
 
-mysqld
+mysqld 
+
+# cat <<E >query
+# USE mysql;
+# FLUSH PRIVILEGES;
+# GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' identified by '$DB_ROOT_PASS' WITH GRANT OPTION ;
+# GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' identified by '$DB_ROOT_PASS' WITH GRANT OPTION ;
+# SET PASSWORD FOR 'root'@'localhost'=PASSWORD('$DB_ROOT_PASS') ;
+# DROP DATABASE IF EXISTS test ;
+# # CREATE DATABASE wordpress;
+# # FLUSH PRIVILEGES ;
+# # GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'%' identified by '$DB_PASS' WITH GRANT OPTION ;
+# # GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'localhost' identified by '$DB_PASS' WITH GRANT OPTION ;
+# # SET PASSWORD FOR '$DB_USER'@'localhost'=PASSORD('$DB_PASS') ;
+# # FLUSH PRIVILEGES ;
+# # E
+
+# # mysqld --user=mysql --bootstrap --datadir=/var/lib/mysql < query
+
+# # rm -rf query
+
+# # mysqld --user=mysql --console --skip-networking=0

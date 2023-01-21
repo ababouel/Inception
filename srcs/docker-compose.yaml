@@ -14,6 +14,17 @@ services:
       - docknet
     volumes:
       - db_mariadb:/var/lib/mysql/
+  adminer:
+    build: ./requirement/bonus/adminer
+    image: adminer:inception
+    container_name: adminer
+    restart: on-failure
+    ports:
+      - 8080:8080
+    depends_on:
+      - mariadb
+    networks:
+      - docknet
   nginx:
     build: ./requirement/nginx
     image: nginx:inception
@@ -47,17 +58,17 @@ services:
 volumes:
   db_wordpress:
     driver: local
-    driver_opts:
-      device: ${PWD}/data/db_wordpress
-      type: none
-      o: binds
+    # driver_opts:
+    #   device: ${PWD}/data/db_wordpress
+    #   type: none
+    #   o: binds
     #   #/home/ababouel/data/db_wordpress
   db_mariadb:
     driver: local
-    driver_opts:
-      device: ${PWD}/data/db_mariadb
-      type: none
-      o: binds
+    # driver_opts:
+    #   device: ${PWD}/data/db_mariadb
+    #   type: none
+    #   o: binds
     #   #/home/ababouel/data/db_mariadb
 networks:
   docknet:

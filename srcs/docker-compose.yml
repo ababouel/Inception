@@ -7,7 +7,7 @@ services:
     container_name: mariadb
     ports:
       - '3306:3306'
-    restart: always
+    restart: on-failure
     env_file:
       - .env
     networks:
@@ -18,7 +18,7 @@ services:
     build: ./requirement/bonus/adminer
     image: adminer:inception
     container_name: adminer
-    restart: always
+    restart: on-failure
     ports:
       - '8080:8080'
     depends_on:
@@ -48,7 +48,7 @@ services:
       - .env
     ports:
       - '9000:9000'
-    restart: always
+    restart: on-failure
     depends_on:
       - mariadb
     networks:

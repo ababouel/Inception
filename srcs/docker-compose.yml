@@ -14,17 +14,6 @@ services:
       - docknet
     volumes:
       - db_mariadb:/var/lib/mysql/
-  adminer:
-    build: ./requirement/bonus/adminer
-    image: adminer:inception
-    container_name: adminer
-    restart: on-failure
-    ports:
-      - '8080:8080'
-    depends_on:
-      - mariadb
-    networks:
-      - docknet
   nginx:
     build: ./requirement/nginx
     image: nginx:inception
@@ -55,19 +44,42 @@ services:
       - docknet
     volumes:
       - db_wordpress:/var/www/html
+  adminer:
+    build: ./requirement/bonus/adminer
+    image: adminer:inception
+    container_name: adminer
+    restart: on-failure
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mariadb
+    networks:
+      - docknet
+  nextjs:
+    build: ./requirement/bonus/nextjs
+    image: nextjs:inception
+    container_name: nextjs
+    restart: on-failure
+    ports:
+      - '3000:3000'
+    networks:
+      - docknet
+
 volumes:
   db_wordpress:
     driver: local
-    driver_opts:
-      device: /home/ababouel/data/dbwordpress
-      type: none
-      o: bind
+    # driver_opts:
+    #   device: /home/ababouel/data/db_wordpress
+    #   type: none
+    #   o: bind
+    #   #/home/ababouel/data/db_wordpress
   db_mariadb:
     driver: local
-    driver_opts:
-      device: /home/ababouel/data/dbmariadb
-      type: none
-      o: bind
+    # driver_opts:
+    #   device: /home/ababouel/data/db_mariadb
+    #   type: none
+    #   o: bind
+    #   #/home/ababouel/data/db_mariadb
 networks:
   docknet:
     driver: bridge

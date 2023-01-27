@@ -11,4 +11,4 @@ mysql -u root -p -e "FLUSH PRIVILEGES;"
 # mysql -u root -p -e "FLUSH PRIVILEGES;"
 kill `cat /var/run/mysqld/mysqld.pid`
 
-mysqld 
+mysqld

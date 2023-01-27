@@ -55,6 +55,7 @@ services:
       - mariadb
     networks:
       - docknet
+<<<<<<< HEAD
   # nextjs:
   #   build: ./requirement/bonus/nextjs
   #   image: nextjs:inception
@@ -73,6 +74,18 @@ services:
       - '6379:6379'
     networks:
       - docknet
+=======
+  nextjs:
+    build: ./requirement/bonus/nextjs
+    image: nextjs:inception
+    container_name: nextjs
+    restart: on-failure
+    ports:
+      - '3000:3000'
+    networks:
+      - docknet
+
+>>>>>>> e4902514396a272f721ec9a9ebca70300f116783
 volumes:
   db_wordpress:
     driver: local

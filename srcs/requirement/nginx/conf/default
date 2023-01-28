@@ -4,11 +4,10 @@ server
     root /var/www/html;
     index index.php;
     server_name localhost;
-    ssl_certificate     /etc/ssl/certs/nginx-selfsigned.crt;
+	ssl_certificate     /etc/ssl/certs/nginx-selfsigned.crt;
     ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
     ssl_protocols       TLSv1.2;
     client_max_body_size 100M;
-
 location ~ .php$ {
         try_files $uri =404;
         fastcgi_pass wordpress:9000; 

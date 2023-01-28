@@ -76,17 +76,17 @@ services:
 volumes:
   db_wordpress:
     driver: local
-    # driver_opts:
-    #   device: /home/ababouel/data/db_wordpress
-    #   type: none
-    #   o: bind
+    driver_opts:
+      device: /home/ababouel/data/db_wordpress
+      type: none
+      o: bind
     #   #/home/ababouel/data/db_wordpress
   db_mariadb:
     driver: local
-    # driver_opts:
-    #   device: /home/ababouel/data/db_mariadb
-    #   type: none
-    #   o: bind
+    driver_opts:
+      device: /home/ababouel/data/db_mariadb
+      type: none
+      o: bind
     #   #/home/ababouel/data/db_mariadb
 networks:
   docknet:

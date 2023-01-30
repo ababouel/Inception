@@ -34,7 +34,10 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp config set WP_REDIS_HOST 'redis' --allow-root
 	wp config set WP_REDIS_PORT '6379' --allow-root
 	wp plugin install redis-cache --allow-root --activate
-	wp redis enable --allow-root	
+	wp redis enable --allow-root
+	
+	#configure ftp with wordpress
+	
 fi
 
 

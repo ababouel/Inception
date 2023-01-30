@@ -1,11 +1,9 @@
-FROM alpine:3.17.1
-
-RUN apk add --no-cache --update  vsftpd==3.0.5-r2
-
-RUN useradd -m ftpuser && echo "ftpuser:password" | chpasswd
-
-COPY vsftpd.conf /etc/vsftpd.conf
+FROM debian:buster
 
 EXPOSE 21
 
-CMD ["vsftpd", "/etc/vsftpd.conf"]
+RUN apt-get update -y && apt-get install vsftpd -y
+COPY ./conf/vsftpd.conf /etc/vsftpd.conf
+COPY ./tools/script.sh /temp/script.sh
+RUN chmod +x /temp/script.sh
+CMD ["/temp/script.sh"]

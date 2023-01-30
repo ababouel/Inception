@@ -55,15 +55,6 @@ services:
       - mariadb
     networks:
       - docknet
-  # nextjs:
-  #   build: ./requirement/bonus/nextjs
-  #   image: nextjs:inception
-  #   container_name: nextjs
-  #   restart: on-failure
-  #   ports:
-  #     - '3000:3000'
-  #   networks:
-  #     - docknet
   redis:
     build: ./requirement/bonus/redis
     image: redis:inception
@@ -73,6 +64,32 @@ services:
       - '6379:6379'
     networks:
       - docknet
+  ftp:
+    build: ./requirement/bonus/ftps
+    image: ftp:inception
+    container_name: ftp
+    restart: on-failure
+    ports:
+      - '21:21'
+      - '21100-21110:21100-21110'
+    volumes:
+      - db_wordpress:/var/www/html
+    env_file:
+      - .env
+    depends_on:
+      - wordpress
+    networks:
+      - docknet
+    
+  # nextjs:
+  #   build: ./requirement/bonus/nextjs
+  #   image: nextjs:inception
+  #   container_name: nextjs
+  #   restart: on-failure
+  #   ports:
+  #     - '3000:3000'
+  #   networks:
+  #     - docknet
 volumes:
   db_wordpress:
     driver: local

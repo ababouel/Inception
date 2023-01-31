@@ -80,7 +80,6 @@ services:
       - wordpress
     networks:
       - docknet
-    
   # nextjs:
   #   build: ./requirement/bonus/nextjs
   #   image: nextjs:inception

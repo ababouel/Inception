@@ -37,8 +37,18 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp redis enable --allow-root
 	
 	#configure ftp with wordpress
-	
+	wp config set --allow-root FS_METHOD 'ftpext'
+    wp config set --allow-root FTP_BASE '/var/www/html/'
+    wp config set --allow-root FTP_USER $FTP_USER
+    wp config set --allow-root FTP_PASS $FTP_PASS
+    wp config set --allow-root FTP_HOST 'ftp:21'
+	mkdir -p /var/www/html/wp-content/plugins
+	mkdir -p /var/www/html/wp-content/themes	
+    chmod 777 /var/www/html/wp-content
+    chmod 777 /var/www/html/wp-content/plugins
+    chmod 777 /var/www/html/wp-content/plugins/upgrade
+    chmod 777 /var/www/html/wp-content/themes
+    wp theme install --allow-root hugo-wp --activate
 fi
-
 
 exec "$@"

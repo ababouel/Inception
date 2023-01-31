@@ -11,6 +11,5 @@ chown -R $FTP_USER:$FTP_USER /home/$FTP_USER/ftp
 
 chmod a-w /home/$FTP_USER/ftp
 
-echo "$FTP_USER" | tee -a /etc/vsftpd.userlist
-
+# echo "$FTP_USER" | tee -a /etc/vsftpd.userlist
 vsftpd /etc/vsftpd.conf

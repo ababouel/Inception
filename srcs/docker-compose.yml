@@ -80,6 +80,21 @@ services:
       - wordpress
     networks:
       - docknet
+  cadviser:
+    build: ./requirement/bonus/cadviser
+    image: cadviser:inception
+    container_name: cadviser
+    restart: on-failure
+    ports:
+      - '8081:8081'
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+    networks:
+      - docknet
+
   # nextjs:
   #   build: ./requirement/bonus/nextjs
   #   image: nextjs:inception

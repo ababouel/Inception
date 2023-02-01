@@ -8,4 +8,4 @@ WORKDIR /app
 
 RUN wget "http://www.adminer.org/latest.php" -O /app/adminer.php
 
-CMD [ "php7","-S","0.0.0.0:8080","adminer.php"]
+CMD [ "php7","-S","0.0.0.0:8081","adminer.php"]

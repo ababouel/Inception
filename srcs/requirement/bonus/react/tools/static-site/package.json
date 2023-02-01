@@ -1,4 +1,5 @@
 {
+  "license": "MIT",
   "name": "static-site",
   "private": true,
   "version": "0.0.0",
@@ -6,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --port 80"
+    "preview": "vite preview --port 80 --host"
   },
   "dependencies": {
     "react": "^18.2.0",

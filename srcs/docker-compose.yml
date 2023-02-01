@@ -50,7 +50,7 @@ services:
     container_name: adminer
     restart: on-failure
     ports:
-      - '8080:8080'
+      - '8081:8081'
     depends_on:
       - mariadb
     networks:
@@ -85,12 +85,14 @@ services:
     image: cadviser:inception
     container_name: cadviser
     restart: on-failure
+    privileged: true
     ports:
-      - '8081:8081'
+      - '8080:8080'
     volumes:
       - "/:/rootfs:ro"
       - "/var/run:/var/run:rw"
       - "/sys:/sys:ro"
+      - "/dev/kmsg:/dev/kmsg"
       - "/var/lib/docker/:/var/lib/docker:ro"
     networks:
       - docknet

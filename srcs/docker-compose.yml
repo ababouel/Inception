@@ -95,15 +95,15 @@ services:
     networks:
       - docknet
 
-  # nextjs:
-  #   build: ./requirement/bonus/nextjs
-  #   image: nextjs:inception
-  #   container_name: nextjs
-  #   restart: on-failure
-  #   ports:
-  #     - '3000:3000'
-  #   networks:
-  #     - docknet
+  nextjs:
+    build: ./requirement/bonus/react
+    image: react:inception
+    container_name: react
+    restart: on-failure
+    ports:
+      - '80:80'
+    networks:
+      - docknet
 volumes:
   db_wordpress:
     driver: local

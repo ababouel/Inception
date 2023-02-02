@@ -46,9 +46,9 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	mkdir -p /var/www/html/wp-content/themes	
     chmod 777 /var/www/html/wp-content
     chmod 777 /var/www/html/wp-content/plugins
-    chmod 777 /var/www/html/wp-content/plugins/upgrade
+    chmod 777 /var/www/html/wp-content/upgrade
     chmod 777 /var/www/html/wp-content/themes
-    wp theme install --allow-root hugo-wp --activate
+    wp theme install --allow-root cockatoo --activate
 fi
 
 exec "$@"

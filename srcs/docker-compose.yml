@@ -1,19 +1,21 @@
 version: "3"
 
 services:
+  
   mariadb:
     build: ./requirement/mariadb
     image: mariadb:inception
     container_name: mariadb
+    restart: on-failure
     ports:
       - '3306:3306'
-    restart: on-failure
     env_file:
       - .env
     networks:
       - docknet
     volumes:
       - db_mariadb:/var/lib/mysql/
+  
   nginx:
     build: ./requirement/nginx
     image: nginx:inception
@@ -29,21 +31,23 @@ services:
       - docknet
     volumes:
       - db_wordpress:/var/www/html
+  
   wordpress:
     build: ./requirement/wordpress
     image: wordpress:inception
     container_name: wordpress
     env_file:
       - .env
+    restart: on-failure
     ports:
       - '9000:9000'
-    restart: on-failure
     depends_on:
       - mariadb
     networks:
       - docknet
     volumes:
       - db_wordpress:/var/www/html
+  
   adminer:
     build: ./requirement/bonus/adminer
     image: adminer:inception
@@ -55,6 +59,7 @@ services:
       - mariadb
     networks:
       - docknet
+  
   redis:
     build: ./requirement/bonus/redis
     image: redis:inception
@@ -64,6 +69,7 @@ services:
       - '6379:6379'
     networks:
       - docknet
+  
   ftp:
     build: ./requirement/bonus/ftps
     image: ftp:inception
@@ -71,7 +77,6 @@ services:
     restart: on-failure
     ports:
       - '21:21'
-      - '21100-21110:21100-21110'
     volumes:
       - db_wordpress:/var/www/html
     env_file:
@@ -80,6 +85,7 @@ services:
       - wordpress
     networks:
       - docknet
+  
   cadviser:
     build: ./requirement/bonus/cadviser
     image: cadviser:inception
@@ -97,7 +103,7 @@ services:
     networks:
       - docknet
 
-  nextjs:
+  react:
     build: ./requirement/bonus/react
     image: react:inception
     container_name: react

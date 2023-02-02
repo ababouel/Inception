@@ -1,15 +1,15 @@
 all:
 	mkdir -p /home/$(USER)/data/db_mariadb && mkdir -p /home/$(USER)/data/db_wordpress
-	docker-compose -f /home/$(USER)/Desktop/Inception/srcs/docker-compose.yml up --build
+	docker-compose -f ./srcs/docker-compose.yml up --build -d
 
 down:
-	docker-compose -f /home/$(USER)/Desktop/Inception/srcs/docker-compose.yml down
+	docker-compose -f ./srcs/docker-compose.yml down
 
 re: down
-	docker-compose -f /home/$(USER)/Desktop/Inception/srcs/docker-compose.yml up -d --build
+	docker-compose -f ./srcs/docker-compose.yml up -d --build
 
 exe:
-	docker-compose  -f /home/$(USER)/Desktop/Inception/srcs/docker-compose.yml exec $(CONTAINER) bash
+	docker-compose  -f ./srcs/docker-compose.yml exec $(CONTAINER) bash
 
 clean:
 	docker rm prune -f
